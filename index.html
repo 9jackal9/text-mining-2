@@ -1381,4 +1381,114 @@ ${pdfText}
                               <td className="py-3.5 px-4 border-r border-slate-200 font-bold text-slate-800">
                                 {t.academicName}
                               </td>
-                              <td className="py-3.5 px-4 text-center border-r border-slate-200 font-
+                              <td className="py-3.5 px-4 text-center border-r border-slate-200 font-semibold text-indigo-600 font-mono">
+                                {t.proportion}%
+                              </td>
+                              <td className="py-3.5 px-4">
+                                <div className="flex flex-wrap gap-1.5">
+                                  {t.keywords && t.keywords.map((kw, idx) => (
+                                    <span 
+                                      key={idx} 
+                                      className="inline-flex items-center bg-slate-100 text-slate-700 rounded px-2 py-0.5 text-[10px] border border-slate-200/50"
+                                    >
+                                      <strong>{kw.word}</strong>
+                                      <span className="text-slate-400 font-mono text-[9px] ml-1">({kw.weight.toFixed(3)})</span>
+                                    </span>
+                                  ))}
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div className="mt-4 bg-slate-50 border border-slate-100 rounded-xl p-4 text-xs text-slate-500 leading-relaxed">
+                      <strong>💡 한글/워드 인용 방법 가이드:</strong><br />
+                      위 테이블 데이터를 복사해 논문 한글문서 혹은 워드문서의 **'연구 결과'** 표 서식으로 붙여넣고 각 토픽의 비중과 주요 단어를 설명하는 본문 보충문단을 삽입하면 구조적 장을 완성할 수 있습니다.
+                    </div>
+                  </div>
+                )}
+
+                {/* TAB CONTENT: SOURCE */}
+                {activeTab === "source" && (
+                  <div className="p-6">
+                    <div className="mb-4">
+                      <h3 className="text-sm font-bold text-slate-800">분석 대상 본문 텍스트 스트림 검증</h3>
+                      <p className="text-xs text-slate-500 mt-1">PDF 파일로부터 로컬 파서에 의해 전처리/추출된 데이터의 정상성 유무를 검토할 수 있습니다.</p>
+                    </div>
+
+                    <div className="bg-slate-900 text-slate-300 font-mono text-xs rounded-xl p-5 overflow-y-auto max-h-[420px] whitespace-pre-wrap leading-relaxed border border-slate-800">
+                      {pdfText}
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            )}
+
+            {/* SECTION 3: INSTRUCTIONS & FAQ */}
+            {!analyticsResult && !isAnalyzing && (
+              <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6">
+                <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                  💡 석박사 LDA 학술 분석 연구 가이드북
+                </h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="bg-indigo-50 text-indigo-700 w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs">1</div>
+                      <h4 className="text-xs font-bold text-slate-700">토픽 수(K) 설정 노하우</h4>
+                    </div>
+                    <p className="text-[11px] text-slate-500 leading-relaxed">
+                      너무 적은 토픽수(K=2,3)는 연구 지성을 지나치게 대조적으로만 묶고, 너무 많은 수(K=12 이상)는 변수 오염 및 유사 토픽 파편화를 초래합니다. 보통 <strong>5개에서 8개 사이</strong>의 중간 값에서 연구 모형을 기술하기가 최선입니다.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="bg-indigo-50 text-indigo-700 w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs">2</div>
+                      <h4 className="text-xs font-bold text-slate-700">인터-토픽 의미 맵 판독</h4>
+                    </div>
+                    <p className="text-[11px] text-slate-500 leading-relaxed">
+                      2차원 평면(PC1, PC2) 상에서 두 토픽 구(Bubble)가 지나치게 겹치고 있다면, 그것은 두 영역이 하나의 큰 통계적 주제를 공유하고 있음을 의미합니다. 이러한 중첩 현상이 크다면 토픽 개수를 줄이는 것이 논문 정제에 이롭습니다.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="bg-indigo-50 text-indigo-700 w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs">3</div>
+                      <h4 className="text-xs font-bold text-slate-700">논문 본문 서술 활용법</h4>
+                    </div>
+                    <p className="text-[11px] text-slate-500 leading-relaxed">
+                      자동 도출된 보고서 원고는 뼈대로 활용하십시오. 질적 연구자로서 각 토픽의 결합 구조와 세부 키워드가 자신의 실제 연구 가설 및 본론에 수렴하도록 보완 수치들을 덧대면 완성도 높은 학위논문이 도출됩니다.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+          </main>
+
+          {/* ================= FOOTER ================= */}
+          <footer className="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800 mt-auto">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2">
+              <p className="font-semibold text-slate-300">Scholar LDA Topic Modeler — Academic Interactive System</p>
+              <p className="text-[11px] text-slate-500">
+                본 소프트웨어는 브라우저 내부 샌드박스에서 모든 PDF 파일 로드를 처리하므로, 연구 자료의 외부 유출이 절대 수반되지 않습니다.
+              </p>
+              <p className="text-[10px] text-indigo-400">
+                Developed with Gemini 2.5 Flash for Advanced Academic Analytics.
+              </p>
+            </div>
+          </footer>
+        </div>
+      );
+    }
+
+    const container = document.getElementById('root');
+    const root = ReactDOM.createRoot(container);
+    root.render(<App />);
+  </script>
+</body>
+</html>
